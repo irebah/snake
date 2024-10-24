@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.gameArea {
+  @apply w-screen max-w-7xl h-screen max-h-[60rem] p-5 border-2 border-blue-300/40 bg-blue-300/20 shadow-xl rounded-xl;
+}
+
+.center {
+  @apply flex justify-center items-center;
+}
