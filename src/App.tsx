@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Board from "./components/Board/Board";
-import { Position, Size } from "./types";
+import { Size } from "./types";
+import { useGameContext } from "./context";
+import Button from "./components/Button/Button";
 
 const App = () => {
   const gameAreaRef = useRef<HTMLDivElement | null>(null);
@@ -9,8 +11,7 @@ const App = () => {
     height: 0,
   });
 
-  const snake: Array<Position> = [{ x: 0, y: 0 }];
-  const apple: Position = { x: 3, y: 5 };
+  const { state } = useGameContext();
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,9 +31,14 @@ const App = () => {
   }, []);
 
   return (
-    <main className="flex-col gap-4 center w-screen h-screen p-5 md:p-10">
+    <main className="flex-col gap-4 center w-screen h-screen sm:p-5 md:p-10 min-w-[345px]">
       <p className="text-4xl">Snake</p>
       <section className="gameArea center flex-col md:flex md:flex-row gap-3 relative">
+        {!state.readyGame && (
+          <section className="absolute border-2 bg-gray-400 w-full h-full flex justify-center items-center z-10 opacity-90 rounded-xl">
+            <Button />
+          </section>
+        )}
         <div
           data-testid="info-area"
           className="md:w-[250px] md:block w-full flex md:order-last mb-2 md:mb-0"
@@ -44,7 +50,7 @@ const App = () => {
           data-testid="game-area"
           className="flex-1 md:h-100 h-full w-full overflow-hidden flex justify-center items-center"
         >
-          <Board size={gameAreaSize} snake={snake} apple={apple}></Board>
+          <Board size={gameAreaSize}></Board>
         </div>
       </section>
     </main>
