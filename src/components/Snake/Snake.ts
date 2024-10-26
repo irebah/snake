@@ -3,7 +3,7 @@ import { Direction, Position } from "../../types";
 
 export class Snake {
   private body: Array<Position>;
-  private direction: Direction | undefined;
+  private direction: Direction;
 
   constructor(body: Array<Position>, direction: Direction) {
     this.body = body;
@@ -23,17 +23,12 @@ export class Snake {
   }
 
   private isOposite(newDirection: Direction): boolean {
-    if (this.direction !== undefined) {
-      const currentVector = directionVectors[this.direction];
-      const newVector = directionVectors[newDirection];
+    const currentVector = directionVectors[this.direction];
+    const newVector = directionVectors[newDirection];
 
-      return (
-        currentVector.x + newVector.x === 0 &&
-        currentVector.y + newVector.y === 0
-      );
-    }
-
-    return false;
+    return (
+      currentVector.x + newVector.x === 0 && currentVector.y + newVector.y === 0
+    );
   }
 
   setDirection(direction: Direction) {

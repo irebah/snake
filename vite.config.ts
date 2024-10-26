@@ -15,7 +15,14 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
-      exclude: [...coverageConfigDefaults.exclude],
+      exclude: [
+        "**/*.mjs",
+        "tailwind.config.ts",
+        "src/constants",
+        "src/types",
+        "src/main.tsx",
+        ...coverageConfigDefaults.exclude,
+      ],
     },
   },
 });
