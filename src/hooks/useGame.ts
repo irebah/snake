@@ -17,6 +17,7 @@ interface Output {
   snakePositions?: Array<Position>;
   applePosition?: Position;
   changeSnakeDirection: (direction: Direction) => void;
+  snakeDirection: Direction | undefined;
 }
 
 export const useGame = ({
@@ -91,7 +92,7 @@ export const useGame = ({
           if (apple.current?.isAt(snakeHead)) {
             dispatch({ type: INCREASE_COUNTER });
             snake.current.grow();
-            apple.current.moveToRandomPosition();
+            apple.current.moveToRandomPosition(numColumns, numRows);
           }
 
           setSnakePositions(snake.current?.getPositions());
@@ -101,7 +102,7 @@ export const useGame = ({
 
       requestAnimationFrame(gameLoop);
     },
-    [dispatch]
+    [dispatch, numColumns, numRows]
   );
 
   useEffect(() => {
@@ -123,5 +124,6 @@ export const useGame = ({
     snakePositions,
     applePosition,
     changeSnakeDirection,
+    snakeDirection: snake.current?.getDirection(),
   };
 };

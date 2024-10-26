@@ -11,7 +11,12 @@ export class Apple {
     return this.position;
   }
 
-  moveToRandomPosition() {}
+  moveToRandomPosition(numColumns: number, numRows: number) {
+    this.position = {
+      x: Math.floor(Math.random() * numColumns),
+      y: Math.floor(Math.random() * numRows),
+    };
+  }
 
   isAt(position: Position): boolean {
     return position.x === this.position.x && position.y === this.position.y;

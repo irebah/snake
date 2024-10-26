@@ -21,6 +21,10 @@ export class Snake {
     // this.body = [head, ...this.body];
   }
 
+  getDirection() {
+    return this.direction;
+  }
+
   private isOposite(newDirection: Direction): boolean {
     switch (newDirection) {
       case Direction.UP:
