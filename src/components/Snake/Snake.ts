@@ -1,3 +1,4 @@
+import { directionVectors } from "../../constants";
 import { Direction, Position } from "../../types";
 
 export class Snake {
@@ -17,25 +18,22 @@ export class Snake {
     return { ...this.body[0] };
   }
 
-  grow() {
-    // this.body = [head, ...this.body];
-  }
-
   getDirection() {
     return this.direction;
   }
 
   private isOposite(newDirection: Direction): boolean {
-    switch (newDirection) {
-      case Direction.UP:
-        return this.direction === Direction.DOWN;
-      case Direction.DOWN:
-        return this.direction === Direction.UP;
-      case Direction.LEFT:
-        return this.direction === Direction.RIGHT;
-      case Direction.RIGHT:
-        return this.direction === Direction.LEFT;
+    if (this.direction !== undefined) {
+      const currentVector = directionVectors[this.direction];
+      const newVector = directionVectors[newDirection];
+
+      return (
+        currentVector.x + newVector.x === 0 &&
+        currentVector.y + newVector.y === 0
+      );
     }
+
+    return false;
   }
 
   setDirection(direction: Direction) {
@@ -44,26 +42,23 @@ export class Snake {
     }
   }
 
-  move() {
+  getNextPositionHead(): Position | undefined {
     if (this.direction !== undefined) {
       const head: Position = this.getHead();
 
-      switch (this.direction) {
-        case Direction.UP:
-          head.y -= 1;
-          break;
-        case Direction.DOWN:
-          head.y += 1;
-          break;
-        case Direction.LEFT:
-          head.x -= 1;
-          break;
-        case Direction.RIGHT:
-          head.x += 1;
-          break;
-      }
+      const vector = directionVectors[this.direction];
 
-      this.body = [head, ...this.body.slice(0, -1)];
+      const newHead = { x: head.x + vector.x, y: head.y + vector.y };
+
+      return newHead;
     }
+  }
+
+  move(head: Position) {
+    this.body = [head, ...this.body.slice(0, -1)];
+  }
+
+  grow(head: Position) {
+    this.body = [head, ...this.body];
   }
 }

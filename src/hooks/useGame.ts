@@ -4,7 +4,9 @@ import { GAME_SPEED } from "../constants";
 import { Snake } from "../components/Snake/Snake";
 import { Apple } from "../components/Apple/Apple";
 import { useGameContext } from "../context";
-import { INCREASE_COUNTER, START_GAME } from "../context/types";
+import { INCREASE_COUNTER, START_GAME, STOP_GAME } from "../context/types";
+import { positionIsWithinBoard } from "../utils/board";
+import crashSound from "../assets/477802__saltbearer__snappy-lo-fi-perc.wav";
 
 interface Props {
   numRows: number;
@@ -86,13 +88,21 @@ export const useGame = ({
         lastTimeRef.current = currentTime;
 
         if (snake.current) {
-          snake.current.move();
-
-          const snakeHead = snake.current.getHead();
-          if (apple.current?.isAt(snakeHead)) {
-            dispatch({ type: INCREASE_COUNTER });
-            snake.current.grow();
-            apple.current.moveToRandomPosition(numColumns, numRows);
+          const nextPosition = snake.current.getNextPositionHead();
+          if (nextPosition) {
+            if (apple.current?.isAt(nextPosition)) {
+              snake.current.grow(nextPosition);
+              dispatch({ type: INCREASE_COUNTER });
+              apple.current.moveToRandomPosition(numColumns, numRows);
+            } else if (
+              !positionIsWithinBoard(nextPosition, numColumns, numRows)
+            ) {
+              const audio = new Audio(crashSound);
+              audio.play();
+              dispatch({ type: STOP_GAME });
+            } else {
+              snake.current.move(nextPosition);
+            }
           }
 
           setSnakePositions(snake.current?.getPositions());

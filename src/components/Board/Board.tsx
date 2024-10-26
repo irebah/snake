@@ -4,13 +4,10 @@ import {
   SNAKE_INITIAL_COL,
   SQUARE_SIZE,
 } from "../../constants";
-import { Direction, Position, Size } from "../../types";
+import { Size } from "../../types";
 import { useGame } from "../../hooks/useGame";
 import { useControls } from "../../hooks/useControls";
-import { useEffect } from "react";
-import { useGameContext } from "../../context";
-import { STOP_GAME } from "../../context/types";
-import crashSound from "../../assets/477802__saltbearer__snappy-lo-fi-perc.wav";
+import { getHeadClass } from "../../utils/board";
 
 interface Props {
   size: Size;
@@ -19,7 +16,7 @@ interface Props {
 const Board = ({ size }: Props) => {
   const numColumns = Math.floor(size.width / SQUARE_SIZE);
   const numRows = Math.floor(size.height / SQUARE_SIZE);
-  const { state, dispatch } = useGameContext();
+
   const {
     snakePositions,
     applePosition,
@@ -32,36 +29,6 @@ const Board = ({ size }: Props) => {
     snakeInitialCol: SNAKE_INITIAL_COL,
   });
   useControls({ changeSnakeDirection });
-
-  const getHeadClass = (): string => {
-    switch (snakeDirection) {
-      case Direction.UP:
-        return "first:rounded-t-full";
-      case Direction.DOWN:
-        return "first:rounded-b-full";
-      case Direction.RIGHT:
-        return "first:rounded-r-full";
-      case Direction.LEFT:
-        return "first:rounded-l-full";
-    }
-    return "";
-  };
-
-  useEffect(() => {
-    if (state.activeGame && snakePositions && numColumns && numRows) {
-      const head: Position = snakePositions[0];
-      if (
-        head.x > numColumns - 1 ||
-        head.x < 0 ||
-        head.y > numRows - 1 ||
-        head.y < 0
-      ) {
-        const audio = new Audio(crashSound);
-        audio.play();
-        dispatch({ type: STOP_GAME });
-      }
-    }
-  }, [snakePositions, numColumns, numRows, state, dispatch]);
 
   return (
     <>
@@ -78,7 +45,9 @@ const Board = ({ size }: Props) => {
           <div
             data-testid={`snake-${square.y}-${square.x}`}
             key={`${square.y}-${square.x}`}
-            className={`${SNAKE_COLOR} absolute ${getHeadClass()}`}
+            className={`${SNAKE_COLOR} absolute ${getHeadClass(
+              snakeDirection
+            )}`}
             style={{
               transform: `translate(${square.x * SQUARE_SIZE}px, ${
                 square.y * SQUARE_SIZE - 1
