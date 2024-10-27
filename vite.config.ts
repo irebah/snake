@@ -20,6 +20,7 @@ export default defineConfig({
         "tailwind.config.ts",
         "src/constants",
         "src/types",
+        "src/mocks",
         "src/main.tsx",
         ...coverageConfigDefaults.exclude,
       ],
