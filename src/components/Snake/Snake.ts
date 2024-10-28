@@ -49,6 +49,12 @@ export class Snake {
     }
   }
 
+  isBodyAt(position: Position): boolean {
+    return this.body.some(
+      (segment) => segment.x === position.x && segment.y === position.y
+    );
+  }
+
   move(head: Position) {
     this.body = [head, ...this.body.slice(0, -1)];
   }

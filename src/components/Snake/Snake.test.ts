@@ -135,4 +135,18 @@ describe("Snake", () => {
       ])
     );
   });
+
+  test("it can check if any part of the snake body is at a specific position", () => {
+    const direction = Direction.UP;
+    const randomPosition = { x: Math.random(), y: Math.random() };
+    const snake = new Snake([...dummyBody, randomPosition], direction);
+
+    let result = snake.isBodyAt({ x: 3, y: 7 });
+
+    expect(result).toBe(false);
+
+    result = snake.isBodyAt({ x: randomPosition.x, y: randomPosition.y });
+
+    expect(result).toBe(true);
+  });
 });

@@ -6,7 +6,6 @@ import { Apple } from "../components/Apple/Apple";
 import { useGameContext } from "../context";
 import { INCREASE_COUNTER, START_GAME, STOP_GAME } from "../context/types";
 import { positionIsWithinBoard } from "../utils/board";
-import crashSound from "../assets/477802__saltbearer__snappy-lo-fi-perc.wav";
 
 interface Props {
   numRows: number;
@@ -95,10 +94,9 @@ export const useGame = ({
               dispatch({ type: INCREASE_COUNTER });
               apple.current.moveToRandomPosition(numColumns, numRows);
             } else if (
-              !positionIsWithinBoard(nextPosition, numColumns, numRows)
+              !positionIsWithinBoard(nextPosition, numColumns, numRows) ||
+              snake.current.isBodyAt(nextPosition)
             ) {
-              const audio = new Audio(crashSound);
-              audio.play();
               dispatch({ type: STOP_GAME });
             } else {
               snake.current.move(nextPosition);
