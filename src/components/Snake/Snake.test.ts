@@ -39,7 +39,7 @@ describe("Snake", () => {
     const direction = Direction.UP;
     const snake = new Snake(dummyBody, direction);
 
-    const result = snake.getDirection();
+    const result = snake.getCurrentDirection();
 
     expect(result).toBe(Direction.UP);
   });
@@ -63,7 +63,9 @@ describe("Snake", () => {
       const snake = new Snake(dummyBody, direction);
 
       snake.setDirection(newDirection);
-      const result = snake.getDirection();
+      // force new direction and current direction to be evaluated
+      snake.getNextPositionHead();
+      const result = snake.getCurrentDirection();
 
       expect(result).toBe(newDirection);
     }
@@ -80,7 +82,9 @@ describe("Snake", () => {
       const snake = new Snake(dummyBody, direction);
 
       snake.setDirection(newDirection);
-      const result = snake.getDirection();
+      // force new direction and current direction to be evaluated
+      snake.getNextPositionHead();
+      const result = snake.getCurrentDirection();
 
       expect(result).toBe(direction);
     }

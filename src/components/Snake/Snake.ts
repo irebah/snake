@@ -3,11 +3,13 @@ import { Direction, Position } from "../../types";
 
 export class Snake {
   private body: Array<Position>;
-  private direction: Direction;
+  private currentDirection!: Direction;
+  private proposedDirection: Direction;
 
   constructor(body: Array<Position>, direction: Direction) {
     this.body = body;
-    this.direction = direction;
+    this.proposedDirection = direction;
+    this.currentDirection = direction;
   }
 
   getPositions(): Array<Position> {
@@ -18,30 +20,32 @@ export class Snake {
     return { ...this.body[0] };
   }
 
-  getDirection() {
-    return this.direction;
+  getCurrentDirection() {
+    return this.currentDirection;
   }
 
-  private isOposite(newDirection: Direction): boolean {
-    const currentVector = directionVectors[this.direction];
-    const newVector = directionVectors[newDirection];
+  private validProposedDirection(): boolean {
+    const currentVector = directionVectors[this.currentDirection];
+    const newVector = directionVectors[this.proposedDirection];
 
     return (
-      currentVector.x + newVector.x === 0 && currentVector.y + newVector.y === 0
+      currentVector.x + newVector.x !== 0 || currentVector.y + newVector.y !== 0
     );
   }
 
   setDirection(direction: Direction) {
-    if (!this.isOposite(direction)) {
-      this.direction = direction;
-    }
+    this.proposedDirection = direction;
   }
 
   getNextPositionHead(): Position | undefined {
-    if (this.direction !== undefined) {
+    if (this.validProposedDirection()) {
+      this.currentDirection = this.proposedDirection;
+    }
+
+    if (this.currentDirection !== undefined) {
       const head: Position = this.getHead();
 
-      const vector = directionVectors[this.direction];
+      const vector = directionVectors[this.currentDirection];
 
       const newHead = { x: head.x + vector.x, y: head.y + vector.y };
 

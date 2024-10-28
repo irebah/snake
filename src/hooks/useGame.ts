@@ -132,6 +132,6 @@ export const useGame = ({
     snakePositions,
     applePosition,
     changeSnakeDirection,
-    snakeDirection: snake.current?.getDirection(),
+    snakeDirection: snake.current?.getCurrentDirection(),
   };
 };
