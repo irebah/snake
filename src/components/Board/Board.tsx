@@ -28,6 +28,7 @@ const Board = ({ size }: Props) => {
     appleInitialCol: APPLE_INITIAL_COL,
     snakeInitialCol: SNAKE_INITIAL_COL,
   });
+
   useControls({ changeSnakeDirection });
 
   return (
