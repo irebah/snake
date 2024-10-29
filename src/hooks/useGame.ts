@@ -36,11 +36,9 @@ export const useGame = ({
 
   const [snakePositions, setSnakePositions] = useState<
     Array<Position> | undefined
-  >(snake.current?.getPositions());
+  >();
 
-  const [applePosition, setApplePosition] = useState<Position | undefined>(
-    apple.current?.getPosition()
-  );
+  const [applePosition, setApplePosition] = useState<Position | undefined>();
 
   const changeSnakeDirection = (direction: Direction) => {
     if (snake.current) {
