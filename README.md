@@ -1,5 +1,8 @@
 # Snake interactive game
 
+[![codecov](https://codecov.io/gh/irebah/snake/graph/badge.svg?token=AK8P3KB9AR)](https://codecov.io/gh/irebah/snake)
+[![Build, test and deploy](https://github.com/irebah/snake/actions/workflows/build.yml/badge.svg)](https://github.com/irebah/snake/actions/workflows/build.yml)
+
 ## Test Your Speed!
 
 ## Table of Contents
