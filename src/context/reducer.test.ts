@@ -10,7 +10,9 @@ import {
 
 describe("reducer", () => {
   test("it should allow to start a game", () => {
-    const state: GameState = { ...initialState, activeGame: false };
+    const state: GameState = { ...initialState };
+
+    expect(state.activeGame).toBe(false);
 
     const result: GameState = reducer(state, { type: START_GAME });
 
@@ -26,7 +28,7 @@ describe("reducer", () => {
 
     const result: GameState = reducer(state, { type: STOP_GAME });
 
-    expect(result.activeGame).toBe(false);
+    expect(result.activeGame).toBe(true);
     expect(result.readyGame).toBe(false);
   });
 
@@ -46,11 +48,13 @@ describe("reducer", () => {
     const state: GameState = {
       ...initialState,
       readyGame: false,
+      activeGame: true,
     };
 
     const result: GameState = reducer(state, { type: SET_READY });
 
     expect(result.readyGame).toBe(true);
+    expect(result.activeGame).toBe(false);
   });
 
   test("it should return error if an unknow action type is sent", () => {

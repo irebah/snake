@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import Board from "./components/Board/Board";
 import { Size } from "./types";
 import { useGameContext } from "./context";
 import Button from "./components/Button/Button";
 import Info from "./components/Info/Info";
+import GameOver from "./components/GameOver/GameOver";
 
 const App = () => {
   const gameAreaRef = useRef<HTMLDivElement | null>(null);
@@ -31,18 +32,25 @@ const App = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const getOverlay = (): ReactNode => {
+    if (!state.readyGame) {
+      return (
+        <section className="absolute border-2 bg-gray-400 w-full h-full flex justify-center items-center z-10 opacity-90 rounded-xl">
+          <Button />
+          {state.activeGame && <GameOver />}
+        </section>
+      );
+    }
+  };
+
   return (
     <main className="flex-col gap-4 center w-screen h-screen sm:p-5 md:p-10 min-w-[345px]">
       <p className="text-4xl">Snake</p>
       <section className="gameArea center flex-col md:flex md:flex-row gap-3 relative">
-        {!state.readyGame && (
-          <section className="absolute border-2 bg-gray-400 w-full h-full flex justify-center items-center z-10 opacity-90 rounded-xl">
-            <Button />
-          </section>
-        )}
+        {getOverlay()}
         <div
           data-testid="info-area"
-          className="md:w-[250px] md:block w-full flex md:order-last mb-2 md:mb-0"
+          className="md:w-[150px] md:block w-full flex md:order-last mb-2 md:mb-0 md:ml-4 md:h-full"
         >
           <Info />
         </div>

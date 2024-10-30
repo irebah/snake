@@ -19,7 +19,6 @@ const reducer = (state: GameState, action: Action): GameState => {
       return {
         ...state,
         readyGame: false,
-        activeGame: false,
       };
 
     case INCREASE_COUNTER:
@@ -32,6 +31,7 @@ const reducer = (state: GameState, action: Action): GameState => {
       return {
         ...state,
         readyGame: true,
+        activeGame: false,
       };
 
     default:
