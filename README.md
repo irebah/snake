@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/irebah/snake/graph/badge.svg?token=AK8P3KB9AR)](https://codecov.io/gh/irebah/snake)
 [![Build, test and deploy](https://github.com/irebah/snake/actions/workflows/build.yml/badge.svg)](https://github.com/irebah/snake/actions/workflows/build.yml)
 
-## Test Your Speed!
+You can view the live version of the project at [https://irebah.github.io/snake](https://irebah.github.io/snake).
 
 ## Table of Contents
 

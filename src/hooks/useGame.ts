@@ -6,6 +6,7 @@ import { Apple } from "../components/Apple/Apple";
 import { useGameContext } from "../context";
 import { INCREASE_COUNTER, START_GAME, STOP_GAME } from "../context/types";
 import { positionIsWithinBoard } from "../utils/board";
+import { logEvent } from "../utils/analytics";
 
 interface Props {
   numRows: number;
@@ -47,6 +48,7 @@ export const useGame = ({
 
     if (state.readyGame && !state.activeGame && direction !== Direction.LEFT) {
       dispatch({ type: START_GAME });
+      logEvent("start_game");
     }
   };
 
@@ -96,6 +98,7 @@ export const useGame = ({
               snake.current.isBodyAt(nextPosition)
             ) {
               dispatch({ type: STOP_GAME });
+              logEvent("stop_game");
             } else {
               snake.current.move(nextPosition);
             }

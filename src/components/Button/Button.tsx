@@ -1,5 +1,6 @@
 import { useGameContext } from "../../context";
 import { SET_READY } from "../../context/types";
+import { logEvent } from "../../utils/analytics";
 
 const Button = () => {
   const { state, dispatch } = useGameContext();
@@ -7,6 +8,7 @@ const Button = () => {
   const initGame = () => {
     if (!state.readyGame) {
       dispatch({ type: SET_READY });
+      logEvent("game_ready");
     }
   };
 
