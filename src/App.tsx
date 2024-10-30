@@ -3,6 +3,7 @@ import Board from "./components/Board/Board";
 import { Size } from "./types";
 import { useGameContext } from "./context";
 import Button from "./components/Button/Button";
+import Info from "./components/Info/Info";
 
 const App = () => {
   const gameAreaRef = useRef<HTMLDivElement | null>(null);
@@ -43,7 +44,7 @@ const App = () => {
           data-testid="info-area"
           className="md:w-[250px] md:block w-full flex md:order-last mb-2 md:mb-0"
         >
-          info will go here
+          <Info />
         </div>
         <div
           ref={gameAreaRef}

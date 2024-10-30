@@ -3,11 +3,14 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { GameProvider } from "./context/index.tsx";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <GameProvider>
-      <App />
-    </GameProvider>
+    <ErrorBoundary>
+      <GameProvider>
+        <App />
+      </GameProvider>
+    </ErrorBoundary>
   </StrictMode>
 );
