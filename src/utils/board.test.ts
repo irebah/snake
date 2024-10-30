@@ -1,11 +1,16 @@
 import { Direction, Position } from "../types";
 import {
+  getFieldFromLocalStorage,
   getHeadClass,
   getRandomNumberInRange,
   positionIsWithinBoard,
 } from "./board";
 
 describe("boardUtils", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
   test.each([
     [Direction.UP, "first:rounded-t-full"],
     [Direction.DOWN, "first:rounded-b-full"],
@@ -62,5 +67,25 @@ describe("boardUtils", () => {
     expect(() => getRandomNumberInRange(min, max)).toThrowError(
       "Minimum value should be less than or equal to maximum value."
     );
+  });
+
+  test("should retrieve value from localstorage", () => {
+    const value = 5;
+    const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+    getItemSpy.mockReturnValue(`${value}`);
+
+    const result = getFieldFromLocalStorage("field");
+
+    expect(getItemSpy).toHaveBeenCalledWith("field");
+    expect(result).toBe(value);
+  });
+
+  test("should return 0 if key does not exist in localstorage", () => {
+    const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+
+    const result = getFieldFromLocalStorage("field");
+
+    expect(getItemSpy).toHaveBeenCalledWith("field");
+    expect(result).toBe(0);
   });
 });

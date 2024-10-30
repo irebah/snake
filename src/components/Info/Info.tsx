@@ -11,7 +11,7 @@ const Info = () => {
       </article>
       <article className="flex flex-col items-center md:items-start">
         <p className="text-2xl">Highest score</p>
-        <p data-testid="elementsClicked">{state.score}</p>
+        <p data-testid="elementsClicked">{state.highestScore}</p>
       </article>
     </section>
   );

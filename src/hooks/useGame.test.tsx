@@ -34,7 +34,6 @@ describe("useGame", () => {
 
   afterEach(() => {
     vi.useRealTimers();
-    vi.clearAllMocks();
   });
 
   test("it should return the snake at a specific position based on the input", () => {

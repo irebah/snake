@@ -1,3 +1,4 @@
+import { HIGHEST_SCORE_KEY } from "../constants";
 import initialState from "./initialState";
 import reducer from "./reducer";
 import {
@@ -32,6 +33,35 @@ describe("reducer", () => {
     expect(result.readyGame).toBe(false);
   });
 
+  test("it should update the highest score when the game ends", () => {
+    const state: GameState = {
+      ...initialState,
+      score: 20,
+      highestScore: 10,
+    };
+
+    const result: GameState = reducer(state, { type: STOP_GAME });
+
+    expect(result.highestScore).toBe(state.score);
+  });
+
+  test("it should update the localstorage when the game ends", () => {
+    const setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+
+    const state: GameState = {
+      ...initialState,
+      score: 20,
+      highestScore: 10,
+    };
+
+    reducer(state, { type: STOP_GAME });
+
+    expect(setItemSpy).toHaveBeenCalledWith(
+      HIGHEST_SCORE_KEY,
+      `${state.score}`
+    );
+  });
+
   test("it should allow to increase the counter", () => {
     const initialScore = Math.floor(Math.random());
     const state: GameState = {
@@ -42,6 +72,34 @@ describe("reducer", () => {
     const result: GameState = reducer(state, { type: INCREASE_COUNTER });
 
     expect(result.score).toBe(initialScore + 1);
+  });
+
+  test("it should increase the highest score when the score reaches it", () => {
+    const initialScore = Math.floor(Math.random() + 7);
+    const state: GameState = {
+      ...initialState,
+      score: initialScore,
+      highestScore: initialScore,
+    };
+
+    const result: GameState = reducer(state, { type: INCREASE_COUNTER });
+
+    expect(result.score).toBe(initialScore + 1);
+    expect(result.highestScore).toBe(initialScore + 1);
+  });
+
+  test("it should not increase the highest score when is higher than the current already", () => {
+    const initialScore = Math.floor(Math.random() + 7);
+    const state: GameState = {
+      ...initialState,
+      score: initialScore,
+      highestScore: initialScore + 5,
+    };
+
+    const result: GameState = reducer(state, { type: INCREASE_COUNTER });
+
+    expect(result.score).toBe(initialScore + 1);
+    expect(result.highestScore).toBe(state.highestScore);
   });
 
   test("it should allow to set the game as ready", () => {
@@ -55,6 +113,7 @@ describe("reducer", () => {
 
     expect(result.readyGame).toBe(true);
     expect(result.activeGame).toBe(false);
+    expect(result.score).toBe(0);
   });
 
   test("it should return error if an unknow action type is sent", () => {

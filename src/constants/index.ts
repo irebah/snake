@@ -14,3 +14,5 @@ export const directionVectors = {
   [Direction.LEFT]: { x: -1, y: 0 },
   [Direction.RIGHT]: { x: 1, y: 0 },
 };
+
+export const HIGHEST_SCORE_KEY = "highestScore";

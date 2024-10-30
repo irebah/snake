@@ -4,6 +4,7 @@ export interface GameState {
   readyGame: boolean;
   activeGame: boolean;
   score: number;
+  highestScore: number;
 }
 
 export interface GameContextType {

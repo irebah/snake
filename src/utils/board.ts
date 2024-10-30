@@ -38,3 +38,8 @@ export const getRandomNumberInRange = (min: number, max: number): number => {
   }
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+export const getFieldFromLocalStorage = (field: string): number => {
+  const value = localStorage.getItem(field);
+  return value ? parseInt(value, 10) : 0;
+};
