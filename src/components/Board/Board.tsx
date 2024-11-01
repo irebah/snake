@@ -7,7 +7,6 @@ import {
 import { Size } from "../../types";
 import { useGame } from "../../hooks/useGame";
 import { useControls } from "../../hooks/useControls";
-import { getHeadClass } from "../../utils/board";
 
 interface Props {
   size: Size;
@@ -17,12 +16,7 @@ const Board = ({ size }: Props) => {
   const numColumns = Math.floor(size.width / SQUARE_SIZE);
   const numRows = Math.floor(size.height / SQUARE_SIZE);
 
-  const {
-    snakePositions,
-    applePosition,
-    changeSnakeDirection,
-    snakeDirection,
-  } = useGame({
+  const { snakePositions, applePosition, changeSnakeDirection } = useGame({
     numRows,
     numColumns,
     appleInitialCol: APPLE_INITIAL_COL,
@@ -46,9 +40,7 @@ const Board = ({ size }: Props) => {
           <div
             data-testid={`snake-${square.y}-${square.x}`}
             key={`${square.y}-${square.x}`}
-            className={`${SNAKE_COLOR} absolute ${getHeadClass(
-              snakeDirection
-            )}`}
+            className={`${SNAKE_COLOR} absolute first:rounded-lg`}
             style={{
               transform: `translate(${square.x * SQUARE_SIZE}px, ${
                 square.y * SQUARE_SIZE - 1
@@ -81,7 +73,7 @@ const Board = ({ size }: Props) => {
               data-testid={`cell-${row}-${column}`}
               key={`${row}-${column}`}
               className={`${
-                (row + column) % 2 === 0 ? "bg-blue-600/60" : "bg-blue-300/60"
+                (row + column) % 2 === 0 ? "bg-gray-400/40" : "bg-gray-300/60"
               }`}
             ></div>
           ))

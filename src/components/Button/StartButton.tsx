@@ -2,7 +2,11 @@ import { useGameContext } from "../../context";
 import { SET_READY } from "../../context/types";
 import { logEvent } from "../../utils/analytics";
 
-const Button = () => {
+interface Props {
+  text?: string;
+}
+
+const StartButton = ({ text = "Start" }: Props) => {
   const { state, dispatch } = useGameContext();
 
   const initGame = () => {
@@ -17,8 +21,8 @@ const Button = () => {
       className="text-black bg-white px-3 py-1 rounded-lg text-3xl shadow-xl"
       onClick={initGame}
     >
-      Start
+      {text}
     </button>
   );
 };
-export default Button;
+export default StartButton;

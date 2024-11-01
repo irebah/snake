@@ -1,7 +1,6 @@
-import { Direction, Position } from "../types";
+import { Position } from "../types";
 import {
   getFieldFromLocalStorage,
-  getHeadClass,
   getRandomNumberInRange,
   positionIsWithinBoard,
 } from "./board";
@@ -10,21 +9,6 @@ describe("boardUtils", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
-
-  test.each([
-    [Direction.UP, "first:rounded-t-full"],
-    [Direction.DOWN, "first:rounded-b-full"],
-    [Direction.RIGHT, "first:rounded-r-full"],
-    [Direction.LEFT, "first:rounded-l-full"],
-    [undefined, ""],
-  ])(
-    "it should start the game when is not active but a direction %i is pressed",
-    (direction: Direction | undefined, className: string) => {
-      const headClass = getHeadClass(direction);
-
-      expect(headClass).toBe(className);
-    }
-  );
 
   test.each([
     [{ x: 5, y: 3 }, 4, 4],
