@@ -22,6 +22,7 @@ const GameOver = () => {
 
   const optionClicked = (option: string) => {
     if (option === "Yes") {
+      logEvent("restart_game");
       initGame();
     }
   };
@@ -50,6 +51,7 @@ const GameOver = () => {
       <div className="flex gap-20">
         {["Yes", "No"].map((option, index) => (
           <button
+            data-testid={`option-${option}`}
             ref={(el) => (buttonRefs.current[index] = el)}
             key={option}
             onClick={() => optionClicked(option)}
