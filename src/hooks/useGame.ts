@@ -33,7 +33,7 @@ export const useGame = ({
   const lastTimeRef = useRef(performance.now());
   const { state, dispatch } = useGameContext();
 
-  const activeGameRef = useRef(state.activeGame);
+  const activeGameRef = useRef(state.activeGame && state.readyGame);
 
   const [snakePositions, setSnakePositions] = useState<
     Array<Position> | undefined
@@ -115,13 +115,13 @@ export const useGame = ({
   );
 
   useEffect(() => {
-    activeGameRef.current = state.activeGame;
+    activeGameRef.current = state.activeGame && state.readyGame;
 
     if (state.activeGame) {
       lastTimeRef.current = performance.now();
       requestAnimationFrame(gameLoop);
     }
-  }, [state.activeGame, gameLoop]);
+  }, [state.activeGame, state.readyGame, gameLoop]);
 
   useEffect(() => {
     if ((state.readyGame && !state.activeGame) || !snake.current) {

@@ -1,8 +1,7 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Board from "./components/Board/Board";
 import { Size } from "./types";
 import { useGameContext } from "./context";
-import StartButton from "./components/Button/StartButton";
 import Info from "./components/Info/Info";
 import GameOver from "./components/GameOver/GameOver";
 
@@ -32,25 +31,11 @@ const App = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const getOverlay = (): ReactNode => {
-    if (!state.readyGame) {
-      if (state.activeGame) {
-        return <GameOver />;
-      } else {
-        return (
-          <section className="absolute border-2 bg-gray-400 w-full h-full flex justify-center items-center z-10 opacity-90 rounded-xl">
-            <StartButton />
-          </section>
-        );
-      }
-    }
-  };
-
   return (
     <main className="flex-col gap-4 center w-screen h-screen sm:p-5 md:p-10 min-w-[345px]">
       <p className="text-4xl">Snake</p>
       <section className="gameArea center flex-col md:flex md:flex-row gap-3 relative">
-        {getOverlay()}
+        {!state.readyGame && state.activeGame && <GameOver />}
         <div
           data-testid="info-area"
           className="md:w-[150px] md:block w-full flex md:order-last mb-2 md:mb-0 md:ml-4 md:h-full"

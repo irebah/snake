@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,4 +10,8 @@
 
 .center {
   @apply flex justify-center items-center;
+}
+
+.text-outline {
+  text-shadow: -4px 4px 0 #ba2d2d;
 }
