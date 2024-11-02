@@ -100,7 +100,45 @@ describe("useGame", () => {
 
   test("it should not move the snake if the game is not ready", () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
-      <MockProvider mockState={{ ...initialState }}>{children}</MockProvider>
+      <MockProvider mockState={{ ...initialState, readyGame: false }}>
+        {children}
+      </MockProvider>
+    );
+
+    const snakeInitialCol = 3;
+    const unitsOfTimePassed = getRandomNumberInRange(2, 5);
+
+    const { result } = renderHook(
+      () =>
+        useGame({
+          numRows: 10,
+          numColumns: 10,
+          appleInitialCol: 9,
+          snakeInitialCol,
+        }),
+      { wrapper }
+    );
+
+    act(() => {
+      vi.advanceTimersByTime(GAME_SPEED * unitsOfTimePassed);
+    });
+
+    expect(JSON.stringify(result.current.snakePositions)).toBe(
+      JSON.stringify([
+        { x: snakeInitialCol, y: 5 },
+        { x: snakeInitialCol - 1, y: 5 },
+        { x: snakeInitialCol - 2, y: 5 },
+      ])
+    );
+  });
+
+  test("it should not move the snake if the game is over", () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <MockProvider
+        mockState={{ ...initialState, readyGame: false, activeGame: true }}
+      >
+        {children}
+      </MockProvider>
     );
 
     const snakeInitialCol = 3;

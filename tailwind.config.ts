@@ -3,7 +3,14 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        PressStart2P: ['"Press Start 2P"'],
+      },
+      colors: {
+        "custom-red": "#ba2d2d",
+      },
+    },
   },
   plugins: [
     function ({
