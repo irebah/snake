@@ -35,6 +35,8 @@ const Board = ({ size }: Props) => {
         className={`grid gap-0 relative border border-black rounded-xl overflow-hidden`}
         style={{
           touchAction: "none",
+          userSelect: "none",
+          pointerEvents: "auto",
           width: `${numColumns * SQUARE_SIZE + 2}px`,
           height: `${numRows * SQUARE_SIZE}px`,
           gridTemplateColumns: `repeat(${numColumns}, ${SQUARE_SIZE}px)`,

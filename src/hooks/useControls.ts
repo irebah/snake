@@ -33,16 +33,16 @@ export const useControls = ({
   );
 
   const handleTouch = useCallback(
-    (event: TouchEvent) => {
+    (event: PointerEvent) => {
       const currentBoard = boardRef.current;
-      const touchStartY = event.touches[0].clientY;
-      const touchStartX = event.touches[0].clientX;
+      const touchStartY = event.clientY;
+      const touchStartX = event.clientX;
 
-      const handleTouchMove = (moveEvent: TouchEvent) => {
+      const handleTouchMove = (moveEvent: PointerEvent) => {
         event.preventDefault();
 
-        const touchMoveY = moveEvent.touches[0].clientY;
-        const touchMoveX = moveEvent.touches[0].clientX;
+        const touchMoveY = moveEvent.clientY;
+        const touchMoveX = moveEvent.clientX;
 
         const deltaY = touchStartY - touchMoveY;
         const deltaX = touchStartX - touchMoveX;
@@ -63,11 +63,11 @@ export const useControls = ({
         }
 
         // Remove the touchmove event listener after processing the swipe
-        currentBoard?.removeEventListener("touchmove", handleTouchMove);
+        currentBoard?.removeEventListener("pointerup", handleTouchMove);
       };
 
       if (currentBoard) {
-        currentBoard.addEventListener("touchmove", handleTouchMove);
+        currentBoard.addEventListener("pointerup", handleTouchMove);
       }
     },
     [changeSnakeDirection, boardRef]
@@ -78,12 +78,12 @@ export const useControls = ({
 
     window.addEventListener("keydown", handleKeyDown);
     if (currentBoard) {
-      currentBoard.addEventListener("touchstart", handleTouch);
+      currentBoard.addEventListener("pointerdown", handleTouch);
     }
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      currentBoard?.removeEventListener("touchstart", handleTouch);
+      currentBoard?.removeEventListener("pointerdown", handleTouch);
     };
   }, [handleKeyDown, handleTouch, boardRef]);
 };

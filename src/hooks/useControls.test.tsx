@@ -71,22 +71,14 @@ describe("useControls", () => {
         })
       );
 
-      fireEvent.touchStart(boardRef.current, {
-        touches: [
-          {
-            clientX: initial.x,
-            clientY: initial.y,
-          },
-        ],
+      fireEvent.pointerDown(boardRef.current, {
+        clientX: initial.x,
+        clientY: initial.y,
       });
 
-      fireEvent.touchMove(boardRef.current, {
-        touches: [
-          {
-            clientX: final.x,
-            clientY: final.y,
-          },
-        ],
+      fireEvent.pointerUp(boardRef.current, {
+        clientX: final.x,
+        clientY: final.y,
       });
 
       expect(changeSnakeDirection).toHaveBeenCalledWith(direction);

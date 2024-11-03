@@ -24,6 +24,8 @@ const GameOver = () => {
     if (option === "Yes") {
       logEvent("restart_game");
       initGame();
+    } else {
+      window.location.href = "https://ismailrebah.com";
     }
   };
 
