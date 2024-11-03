@@ -7,6 +7,7 @@ import {
 import { Size } from "../../types";
 import { useGame } from "../../hooks/useGame";
 import { useControls } from "../../hooks/useControls";
+import { useRef } from "react";
 
 interface Props {
   size: Size;
@@ -15,6 +16,7 @@ interface Props {
 const Board = ({ size }: Props) => {
   const numColumns = Math.floor(size.width / SQUARE_SIZE);
   const numRows = Math.floor(size.height / SQUARE_SIZE);
+  const boardRef = useRef<HTMLDivElement | null>(null);
 
   const { snakePositions, applePosition, changeSnakeDirection } = useGame({
     numRows,
@@ -23,14 +25,16 @@ const Board = ({ size }: Props) => {
     snakeInitialCol: SNAKE_INITIAL_COL,
   });
 
-  useControls({ changeSnakeDirection });
+  useControls({ changeSnakeDirection, boardRef });
 
   return (
     <>
       <section
+        ref={boardRef}
         data-testid="grid"
         className={`grid gap-0 relative border border-black rounded-xl overflow-hidden`}
         style={{
+          touchAction: "none",
           width: `${numColumns * SQUARE_SIZE + 2}px`,
           height: `${numRows * SQUARE_SIZE}px`,
           gridTemplateColumns: `repeat(${numColumns}, ${SQUARE_SIZE}px)`,
