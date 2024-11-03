@@ -36,6 +36,20 @@ describe("Game Over", () => {
     expect(mockDispatch).toHaveBeenCalledWith({ type: SET_READY });
   });
 
+  test("it should redirect to the portfolio when the option no is clicked", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <MockProvider mockState={{ ...initialState, readyGame: false }}>
+        <GameOver />
+      </MockProvider>
+    );
+
+    await user.click(screen.getByTestId("option-No"));
+
+    expect(window.location.href).toBe("https://ismailrebah.com/");
+  });
+
   test("it should restart the game when the option yes is focused and enter is pressed", async () => {
     const mockDispatch = vi.fn();
     const user = userEvent.setup();
