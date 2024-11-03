@@ -1,5 +1,5 @@
 import ReactGA from "react-ga4";
-import { initAnalytics, TRACKING_ID } from "./analytics";
+import { initAnalytics } from "./analytics";
 import { describe, expect, vi } from "vitest";
 
 describe("Analytics", () => {
@@ -18,7 +18,9 @@ describe("Analytics", () => {
 
     initAnalytics();
 
-    expect(ReactGA.initialize).toHaveBeenCalledWith(TRACKING_ID);
+    expect(ReactGA.initialize).toHaveBeenCalledWith(
+      import.meta.env.VITE_GOOGLE_ANALYTICS_ID
+    );
     expect(ReactGA.send).toHaveBeenCalledWith("pageview");
   });
 

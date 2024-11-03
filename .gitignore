@@ -26,3 +26,4 @@ junit-report.xml
 coverage/
 tsconfig.app.tsbuildinfo
 tsconfig.node.tsbuildinfo
+.env

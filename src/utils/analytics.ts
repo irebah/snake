@@ -1,11 +1,8 @@
 import ReactGA from "react-ga4";
 
-export const TRACKING_ID = "G-QGLL5PN0QJ";
-
 export const initAnalytics = () => {
   if (import.meta.env.MODE !== "development") {
-    console.log("isma", import.meta.env.MODE);
-    ReactGA.initialize(TRACKING_ID);
+    ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
     ReactGA.send("pageview");
   }
 };

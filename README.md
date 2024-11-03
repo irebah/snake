@@ -20,6 +20,7 @@ You can view the live version of the project at [https://irebah.github.io/snake]
 - Classic Snake gameplay
 - Score tracking
 - Simple controls
+- Works in mobile
 - Easy to extend and customize
 
 ## Technologies
@@ -57,7 +58,7 @@ To set up the project locally, follow these steps:
 
 ## Usage
 
-To start the game, click the "Start" button. Once the game begins, use the arrow keys (right, up, or down) to guide the snake toward the apple.
+To start the game, use the arrow keys (right, up, or down) to guide the snake toward the apple or swipe in those directions in the case of mobile device.
 
 Every time the snake eats an apple, it will relocate to a new random position on the grid. Be cautious! If the snake runs into itself or the walls, it will result in a game over. Good luck!
 
