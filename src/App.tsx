@@ -24,7 +24,7 @@ const App = () => {
       }
     };
 
-    handleResize();
+    setTimeout(handleResize, 300);
 
     window.addEventListener("resize", handleResize);
 
