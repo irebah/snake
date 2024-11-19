@@ -1,9 +1,5 @@
 import { Position } from "../types";
-import {
-  getFieldFromLocalStorage,
-  getRandomNumberInRange,
-  positionIsWithinBoard,
-} from "./board";
+import { getFieldFromLocalStorage, getRandomNumberInRange, positionIsWithinBoard } from "./board";
 
 describe("boardUtils", () => {
   beforeEach(() => {
@@ -55,7 +51,7 @@ describe("boardUtils", () => {
 
   test("should retrieve value from localstorage", () => {
     const value = 5;
-    const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+    const getItemSpy = vi.spyOn(localStorage, "getItem");
     getItemSpy.mockReturnValue(`${value}`);
 
     const result = getFieldFromLocalStorage("field");
@@ -65,7 +61,7 @@ describe("boardUtils", () => {
   });
 
   test("should return 0 if key does not exist in localstorage", () => {
-    const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+    const getItemSpy = vi.spyOn(localStorage, "getItem");
 
     const result = getFieldFromLocalStorage("field");
 

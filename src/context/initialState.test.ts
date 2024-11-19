@@ -7,7 +7,7 @@ describe("initialState", () => {
 
   test("it should retrieve the highest score from the local storage if available", async () => {
     const highestScore = 5;
-    const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+    const getItemSpy = vi.spyOn(localStorage, "getItem");
     getItemSpy.mockReturnValue(`${highestScore}`);
 
     const state = await import("./initialState");
@@ -17,7 +17,7 @@ describe("initialState", () => {
   });
 
   test("it should retrieve the highest score as 0 from the local storage if not available", async () => {
-    const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+    const getItemSpy = vi.spyOn(localStorage, "getItem");
 
     const state = await import("./initialState");
 

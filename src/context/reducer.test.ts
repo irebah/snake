@@ -1,13 +1,7 @@
 import { HIGHEST_SCORE_KEY } from "../constants";
 import initialState from "./initialState";
 import reducer from "./reducer";
-import {
-  GameState,
-  INCREASE_COUNTER,
-  SET_READY,
-  START_GAME,
-  STOP_GAME,
-} from "./types";
+import { GameState, INCREASE_COUNTER, SET_READY, START_GAME, STOP_GAME } from "./types";
 
 describe("reducer", () => {
   test("it should allow to start a game", () => {
@@ -46,7 +40,7 @@ describe("reducer", () => {
   });
 
   test("it should update the localstorage when the game ends", () => {
-    const setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+    const setItemSpy = vi.spyOn(localStorage, "setItem");
 
     const state: GameState = {
       ...initialState,
@@ -56,10 +50,7 @@ describe("reducer", () => {
 
     reducer(state, { type: STOP_GAME });
 
-    expect(setItemSpy).toHaveBeenCalledWith(
-      HIGHEST_SCORE_KEY,
-      `${state.score}`
-    );
+    expect(setItemSpy).toHaveBeenCalledWith(HIGHEST_SCORE_KEY, `${state.score}`);
   });
 
   test("it should allow to increase the counter", () => {
